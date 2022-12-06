@@ -1,0 +1,23 @@
+FROM node:16
+
+ARG GIT_USER
+#   ^ No Default
+ARG GIT_PAT
+#   ^ No Default
+
+# Create node user
+RUN useradd -ms /bin/bash node && \
+  usermod -aG sudo node && \
+  echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
+    sudo chown -R node /usr/local/n && \
+  mkdir -p /usr/local/bin /usr/local/lib /usr/local/include /usr/local/share && \
+  chown -R node /usr/local/bin /usr/local/lib /usr/local/include /usr/local/share
+USER node
+
+# Copy src files as regular user
+WORKDIR /home/node/app
+COPY --chown=node:node . .
+
+RUN cd ./backend && npm i
+
+ENTRYPOINT ["tail", "-f", "/dev/null"]

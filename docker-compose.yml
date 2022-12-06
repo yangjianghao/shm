@@ -1,17 +1,46 @@
-version: '3.4'
-
 services:
-  shardeum-dashboard:
-    container_name: shardeum-dashboard
-    # network_mode: 'host'
-    image: test-dashboard
-    # volumes:
-      # - './config.json:/usr/src/app/config.json:Z'
-      # - './data/logs:/usr/src/app/logs:Z'
-      # - './data/db:/usr/src/app/db:Z'
-    # restart: 'always'
+  validator:
+    restart: on-failure
+    image: registry.gitlab.com/shardeum/shardeum-server:1.0.0.0
+    volumes:
+      - data_vol:/app
+    ports:
+      - 9001:9001
+    networks:
+      default:
+        aliases:
+          - validator
+      
+  cli:
+    restart: on-failure
+    image: registry.gitlab.com/shardeum/validator-cli:0.0.0.1
+    volumes:
+      - data_vol:/app
     env_file: .env
     ports:
-      - '9001:9001'
       - '10001:10001'
+    networks:
+      default:
+        aliases:
+          - cli
+    depends_on:
+      - validator
+
+  gui:
+    restart: on-failure
+    image: registry.gitlab.com/shardeum/validator-gui:0.0.0.1
+    volumes:
+      - data_vol:/app
+    env_file: .env
+    ports:
       - '8080:8080'
+    networks:
+      default:
+        aliases:
+          - gui
+    depends_on:
+      - cli
+      - validator
+
+volumes:
+  data_vol:
