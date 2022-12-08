@@ -22,7 +22,7 @@ cd ../..
 # Clone the shardeum validator
 git config --global credential.helper '!f() { sleep 1; echo "username=${GIT_USER}"; echo "password=${GIT_PASS}"; }; f'
 git clone https://gitlab.com/shardeum/server.git validator
-cd validator && git checkout ${VALIDATOR_VERSION} && npm i
+cd validator && git checkout ${VALIDATOR_VERSION} && npm i && npm run compile
 git config --global credential.helper cache
 cd ..
 

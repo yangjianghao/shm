@@ -29,6 +29,24 @@ app.post('/stop', (req, res) => {
   console.log('executing operator-cli stop...');
 });
 
+app.post('/status', (req, res) => {
+  // Exec the CLI validator status command
+  exec('operator-cli status', (err, stdout, stderr) => {
+    console.log('operator-cli status result: ', err, stdout, stderr);
+    res.end();
+  });
+  console.log('executing operator-cli status...');
+});
+
+app.post('/gui/status', (req, res) => {
+  // Exec the CLI gui status command
+  exec('operator-cli gui status', (err, stdout, stderr) => {
+    console.log('operator-cli gui status result: ', err, stdout, stderr);
+    res.end();
+  });
+  console.log('executing operator-cli gui status...');
+});
+
 // start the express server
 app.listen(port, () => {
   console.log(`server started at http://localhost:${port}`);

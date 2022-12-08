@@ -4,11 +4,12 @@ services:
   shardeum-dashboard:
     container_name: shardeum-dashboard
     # network_mode: 'host'
-    image: test-dashboard
+    build:
+      context: .
     # volumes:
-      # - './config.json:/usr/src/app/config.json:Z'
-      # - './data/logs:/usr/src/app/logs:Z'
-      # - './data/db:/usr/src/app/db:Z'
+    # - './config.json:/usr/src/app/config.json:Z'
+    # - './data/logs:/usr/src/app/logs:Z'
+    # - './data/db:/usr/src/app/db:Z'
     # restart: 'always'
     env_file: .env
     ports:
