@@ -1,12 +1,19 @@
 #!/bin/bash
 
-cat <<EOF
+# Check all things that will be needed for this script to succeed like access to docker and docker-compose
+# If any check fails exit with a message on what the user needs to do to fix the problem
+
+
+cat << EOF
 
 #########################
 # 0. GET INFO FROM USER #
 #########################
 
 EOF
+
+# Remeber to remove this after the repo is public
+read -p "Repo key; temporary until we make the repo public?: " REPOKEY
 
 read -p "Do you want to run the web based Dashboard? (y/n): " RUNDASHBOARD
 RUNDASHBOARD=${RUNDASHBOARD:-y}
@@ -76,6 +83,9 @@ cat <<EOF
 EOF
 
 cd ${NODEHOME} &&
+
+# Login with the repo key
+
 ./docker-up.sh
 
 echo "Starting image."
