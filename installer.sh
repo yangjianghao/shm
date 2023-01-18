@@ -13,9 +13,6 @@ cat << EOF
 
 EOF
 
-# Remeber to remove this after the repo is public
-read -p "Repo key; temporary until we make the repo public?: " REPOKEY
-
 read -p "Do you want to run the web based Dashboard? (y/n): " RUNDASHBOARD
 RUNDASHBOARD=${RUNDASHBOARD:-y}
 
@@ -84,8 +81,6 @@ cat <<EOF
 EOF
 
 cd ${NODEHOME} &&
-
-# Login with the repo key
 
 ./docker-up.sh
 
