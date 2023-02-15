@@ -196,7 +196,7 @@ if [ -d "$NODEHOME" ]; then
   rm -rf "$NODEHOME"
 fi
 
-git clone https://gitlab.com/shardeum/validator/dashboard.git ${NODEHOME} &&
+git clone -b dev-settings https://gitlab.com/shardeum/validator/dashboard.git ${NODEHOME} &&
   cd ${NODEHOME} &&
   chmod a+x ./*.sh
 
